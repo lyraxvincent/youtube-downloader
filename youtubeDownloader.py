@@ -15,7 +15,7 @@ audstream = mystream.audiostreams
 select = input('For audio download enter "A", for video download enter "V": ').upper()
 
 if select == 'A':
-    print('The audiostreams are: \n ', [j for j in enumerate(audstream)])
+    print('The audiostreams are: \n ', [j for j in enumerate(audstream, start=1)])
     for i in range(len(audstream)):
         print('For audio {} enter {}'.format(i+1, i))
     choice = eval(input('Enter your choice: '))     #instantiate your choice of audio quality
@@ -25,7 +25,7 @@ if select == 'A':
     print('Download finished.')
 
 elif select == 'V':
-    print('The videostreams are: \n', [j for j in enumerate(vidstream)])
+    print('The videostreams are: \n', [j for j in enumerate(vidstream, start=1)])
     for i in range(len(vidstream)):
         print('For video {} enter {}'.format(i+1, i))
     choice = eval(input('Enter your choice: '))     #instantiate your choice of video quality
