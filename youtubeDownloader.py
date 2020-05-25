@@ -25,13 +25,11 @@ if select == 'A':
     print('Download finished.')
 
 elif select == 'V':
-    print('The videostreams are: \n', [j for j in enumerate(vidstream, start=1)])
-    for i in range(len(vidstream)):
-        print('For video {} enter {}'.format(i+1, i))
-    choice = eval(input('Enter your choice: '))     #instantiate your choice of video quality
+    print('The videostreams are: \n', [j for j in enumerate(vidstream, start=0)])
+    choice = eval(input('Enter video number: '))     #instantiate your choice of video quality
 
     print('Downloading...', vidstream[choice])
-    vidstream[choice].download()                    #download your video
+    vidstream[choice].download(remux_audio=True)                    #download your video
     print('Download finished.')
 
 else:
