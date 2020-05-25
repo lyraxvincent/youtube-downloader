@@ -15,10 +15,8 @@ audstream = mystream.audiostreams
 select = input('For audio download enter "A", for video download enter "V": ').upper()
 
 if select == 'A':
-    print('The audiostreams are: \n ', [j for j in enumerate(audstream, start=1)])
-    for i in range(len(audstream)):
-        print('For audio {} enter {}'.format(i+1, i))
-    choice = eval(input('Enter your choice: '))     #instantiate your choice of audio quality
+    print('The audiostreams are: \n ', [j for j in enumerate(audstream, start=0)])
+    choice = eval(input('Enter audio number: '))     #instantiate your choice of audio quality
 
     print('Downloading...', audstream[choice])
     audstream[choice].download()                    #download the audio
