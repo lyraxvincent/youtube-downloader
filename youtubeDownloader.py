@@ -1,5 +1,12 @@
 import pafy
 import youtube_dl
+from pytube import YouTube # for videos
+import ffmpeg # audio - video merging
+import os
+import shutil # remove non-empty directories
+
+if not 'video' in os.listdir('.'):
+    os.mkdir('video/'); os.mkdir('audio/')
 
 # url of video
 url = input("input video url :")
@@ -21,11 +28,24 @@ if select == 'A':
     print('Download finished.')
 
 elif select == 'V':
-    print('Available videostreams with sound are: \n', [video for video in enumerate(mystream.streams, start=0)])
-    choice = eval(input('Enter videostream number: '))     #instantiate your choice of video quality
+    
+    yt = YouTube(url)
+    title = str(yt.title)
+    vidstreams = yt.streams.filter(adaptive=True, file_extension='mp4').order_by('resolution')[7:] # starting from 480p
 
-    print('Downloading...', mystream.streams[choice])
-    mystream.streams[choice].download()                    #download the video
+    print("Available video streams: ", [(tag.itag, tag.resolution) for tag in vidstreams])
+    tag_number = input("Enter video tag number: ")
+    yt.streams.get_by_itag(tag_number).download(output_path='video/', filename=title+'.mp4')
+    yt.streams.filter(abr='128kbps')[0].download(output_path='audio/', filename=title+'.mp4')
+
+    # merge audio to video
+    input_video = ffmpeg.input(f'audio/{title}.mp4')
+    input_audio = ffmpeg.input(f'video/{title}.mp4')
+    ffmpeg.output(input_video, input_audio, f'{yt.title}.mp4', vcodec='copy', acodec='aac', strict='experimental').run()
+
+    # remove created directories
+    shutil.rmtree('video'); shutil.rmtree('audio')
+
     print('Download finished.')
 
 else:
