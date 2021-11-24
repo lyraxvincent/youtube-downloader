@@ -9,7 +9,7 @@ if not 'video' in os.listdir('.'):
     os.mkdir('video/'); os.mkdir('audio/')
 
 # url of video
-url = input("input video url :")
+url = input("input video url: ")
 
 #create stream object
 mystream = pafy.new(url)
