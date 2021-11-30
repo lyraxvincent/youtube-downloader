@@ -27,12 +27,12 @@ if select == 'A':
 
 elif select == 'V':
 
-    if not ('video' in os.listdir('.')) or ('audio' in os.listdir('.')):
-        os.mkdir('video/'); os.mkdir('audio/')
+    if not ('video' in os.listdir('.')) or ('audio' not in os.listdir('.')):
+        os.mkdir('video'); os.mkdir('audio')
     
     yt = YouTube(url)
     title = str(yt.title)
-    vidstreams = yt.streams.filter(adaptive=True, file_extension='mp4').order_by('resolution')[7:] # starting from 480p
+    vidstreams = yt.streams.filter(adaptive=True, file_extension='mp4').order_by('resolution')
 
     print("Available video streams: ", [(tag.itag, tag.resolution) for tag in vidstreams])
     tag_number = input("Enter video tag number: ")
