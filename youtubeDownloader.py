@@ -8,7 +8,7 @@ import shutil # remove non-empty directories
 url = input("input video url: ")
 
 # YouTube object
-yt = YouTube(url)
+yt = YouTube(url, on_progress_callback=on_progress)
 title = str(yt.title)
 
 select = input('For audio download enter "A", for video download enter "V": ').upper()
