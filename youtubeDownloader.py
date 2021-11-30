@@ -5,8 +5,6 @@ import ffmpeg # audio - video merging
 import os
 import shutil # remove non-empty directories
 
-if not 'video' in os.listdir('.'):
-    os.mkdir('video/'); os.mkdir('audio/')
 
 # url of video
 url = input("input video url: ")
@@ -28,6 +26,9 @@ if select == 'A':
     print('Download finished.')
 
 elif select == 'V':
+
+    if not ('video' in os.listdir('.')) or ('audio' in os.listdir('.')):
+        os.mkdir('video/'); os.mkdir('audio/')
     
     yt = YouTube(url)
     title = str(yt.title)
