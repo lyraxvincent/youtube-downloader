@@ -19,7 +19,7 @@ if select == 'A':
     audio_streams = yt.streams.filter(only_audio=True)
     print("Available audio streams: ", [(tag.itag, '[' + tag.abr + ' : ' + tag.audio_codec + ']') for tag in audio_streams])
     tag_number = input("Enter audio tag number: ")
-    yt.streams.get_by_itag(tag_number).download(filename=title+'.mp3')
+    yt.streams.get_by_itag(tag_number).download(filename=title+'.mp4')
 
 elif select == 'V':
 
