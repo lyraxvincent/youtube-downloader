@@ -3,6 +3,7 @@ from pytube.cli import on_progress
 import ffmpeg # audio - video merging
 import os
 import shutil # remove non-empty directories
+from pydub import AudioSegment # audio conversion to mp3
 
 
 # url of video
@@ -20,6 +21,12 @@ if select == 'A':
     print("Available audio streams: ", [(tag.itag, '[' + tag.abr + ' : ' + tag.audio_codec + ']') for tag in audio_streams])
     tag_number = input("Enter audio tag number: ")
     yt.streams.get_by_itag(tag_number).download(filename=title+'.mp4')
+
+    # convert to mp3
+    mp4_audio = AudioSegment.from_file(f"{title}.mp4", 'mp4')
+    mp4_audio.export(f"{title}.mp3", format="mp3")
+    # delete previous format
+    os.remove(f"{title}.mp4")
 
 elif select == 'V':
 
